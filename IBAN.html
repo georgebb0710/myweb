@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas con Hipervínculo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="miCanvas" width="600" height="400"></canvas>
+    <script>
+        // Configuración del canvas
+        const canvas = document.getElementById('miCanvas');
+        const context = canvas.getContext('2d');
+
+        // Dibujar el texto en el canvas
+        context.font = '20px Arial';
+        context.fillStyle = 'blue';
+        const text = 'Ver IBAN';
+        const x = 250;
+        const y = 200;
+        context.fillText(text, x, y);
+
+        // Obtener las dimensiones del texto
+        const textMetrics = context.measureText(text);
+        const textWidth = textMetrics.width;
+        const textHeight = 20; // Aproximadamente la altura de la fuente
+
+        // Manejar el evento de clic
+        canvas.addEventListener('click', function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const clickY = event.clientY - rect.top;
+
+            // Verificar si el clic está dentro de las coordenadas del texto
+            if (clickX >= x && clickX <= x + textWidth && clickY >= y - textHeight && clickY <= y) {
+                // Redirigir a la página con el IBAN
+                window.location.href = 'iban.html';
+            }
+        });
+    </script>
+</body>
+</html>
